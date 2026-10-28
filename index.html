@@ -1,0 +1,251 @@
+¿Cómo puedo optimizar el código HTML para que cargue más rápido en dispositivos móviles?
+
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nubia Music 2 - Radio de Vergüenza en City Bell</title>
+    <style>
+        /* Estilos CSS optimizados para carga rápida */
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            font-family: 'Consolas', 'Monaco', monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            font-size: 16px; /* Base font size */
+        }
+        h1 {
+            color: #ff3b30;
+            font-size: 2.5em; /* Ajustado para móviles */
+            margin-bottom: 15px; /* Reducido */
+            line-height: 1.2;
+            text-shadow: 0 0 8px #ff3b30; /* Reducido */
+        }
+        .controls {
+            margin: 15px 0; /* Reducido */
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px; /* Reducido */
+            justify-content: center;
+            width: 100%;
+            max-width: 500px; /* Reducido */
+        }
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px; /* Reducido */
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 12px; /* Reducido */
+            border-radius: 6px; /* Reducido */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            flex: 1; /* Permite que los elementos se expandan */
+            min-width: 180px; /* Para evitar que se colapsen demasiado */
+        }
+        label {
+            font-size: 1.1em;
+            margin-bottom: 4px; /* Reducido */
+        }
+        select, button {
+            font-family: 'Consolas', 'Monaco', monospace;
+            padding: 10px 15px; /* Reducido */
+            font-size: 1em; /* Ajustado */
+            border: none;
+            border-radius: 4px; /* Reducido */
+            cursor: pointer;
+            transition: all 0.2s ease; /* Transición más rápida */
+            background-color: #ff3b30;
+            color: white;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2); /* Reducido */
+        }
+        select {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            width: 100%; /* Ocupa el ancho del grupo */
+        }
+        button:hover {
+            background-color: #ff5c52;
+            transform: translateY(-1px); /* Menor desplazamiento */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25); /* Reducido */
+        }
+        #calculate-button {
+            font-size: 1.6em; /* Ajustado */
+            padding: 15px 30px; /* Reducido */
+            margin: 15px 0; /* Reducido */
+            background-color: #ff3b30;
+            border-radius: 8px; /* Reducido */
+        }
+        #calculate-button:hover {
+            background-color: #ff5c52;
+        }
+        .result-container {
+            margin-top: 20px; /* Reducido */
+            width: 100%;
+            max-width: 500px; /* Reducido */
+        }
+        #distance-meters {
+            font-size: 4em; /* Ajustado */
+            font-weight: bold;
+            color: #ff3b30;
+            text-shadow: 0 0 10px #ff3b30; /* Reducido */
+            margin-bottom: 8px; /* Reducido */
+        }
+        #visual-bar-container {
+            width: 100%;
+            height: 25px; /* Reducido */
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 12px; /* Reducido */
+            overflow: hidden;
+            margin-top: 8px; /* Reducido */
+        }
+        #visual-bar {
+            height: 100%;
+            background-color: #ff3b30;
+            width: 0%;
+            transition: width 0.8s ease-in-out; /* Transición más rápida */
+        }
+        .message {
+            font-size: 1.2em; /* Ajustado */
+            margin-top: 15px; /* Reducido */
+            color: #cccccc;
+            min-height: 40px; /* Reducido */
+        }
+        .footer {
+            margin-top: 30px; /* Reducido */
+            font-size: 0.7em; /* Reducido */
+            color: rgba(255, 255, 255, 0.5);
+        }
+        /* Media query para pantallas más grandes */
+        @media (min-width: 600px) {
+            h1 {
+                font-size: 3em;
+            }
+            .controls {
+                gap: 20px;
+            }
+            .control-group {
+                min-width: 200px;
+            }
+            #calculate-button {
+                font-size: 1.8em;
+                padding: 20px 40px;
+                margin: 20px 0;
+            }
+            #distance-meters {
+                font-size: 5em;
+            }
+            .message {
+                font-size: 1.5em;
+            }
+            .footer {
+                font-size: 0.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>
+        <span style="font-size: 0.4em; display: block; margin-bottom: -8px;">🔊</span>
+        <br>nubia Music 2 - RADIO DE VERGÜENZA EN CITY BELL
+    </h1>
+
+    <div class="controls">
+        <div class="control-group">
+            <label for="location">¿Dónde lo vas a usar?</label>
+            <select id="location">
+                <option value="0">Patio cerrado con rebote (+6dB)</option>
+                <option value="-3">Plaza Belgrano abierto (-3dB)</option>
+                <option value="-6">Cantilo sábado con ruido (-6dB)</option>
+                <option value="3">Calle City Bell 22hs silencio (+3dB)</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label for="volume">Volumen</label>
+            <select id="volume">
+                <option value="75">100% tranqui (75dB)</option>
+                <option value="85">300% medio (85dB)</option>
+                <option value="95">600% MODO PARLANTE (95dB)</option>
+            </select>
+        </div>
+    </div>
+
+    <button id="calculate-button">CALCULAR VERGÜENZA</button>
+
+    <div class="result-container">
+        <div id="distance-meters">--</div>
+        <div id="visual-bar-container">
+            <div id="visual-bar"></div>
+        </div>
+        <div id="message" class="message">
+            Ajustá arriba y apretá el botón para ver hasta dónde llega tu buen gusto musical.
+        </div>
+    </div>
+
+    <div class="footer">
+        Hecho con amor platense y código sin framework. ¡Que tiemble City Bell!
+    </div>
+
+    <script>
+        const locationSelect = document.getElementById('location');
+        const volumeSelect = document.getElementById('volume');
+        const calculateButton = document.getElementById('calculate-button');
+        const distanceMetersDiv = document.getElementById('distance-meters');
+        const visualBar = document.getElementById('visual-bar');
+        const messageDiv = document.getElementById('message');
+
+        const dB_TARGET = 60; // Nivel de conversación molesta
+
+        calculateButton.addEventListener('click', () => {
+            const locationAdjustment = parseInt(locationSelect.value);
+            const initialVolume = parseInt(volumeSelect.value);
+            const initialDb = initialVolume + locationAdjustment;
+
+            if (initialDb <= dB_TARGET) {
+                distanceMetersDiv.textContent = "0";
+                visualBar.style.width = '0%';
+                messageDiv.textContent = "Sos un ninja del sonido. Nadie te escucha, ni vos mismo.";
+                return;
+            }
+
+            const distance = Math.pow(10, (initialDb - dB_TARGET) / 20);
+            // Estimación de la distancia máxima teórica para la barra visual.
+            // Usamos el máximo posible (95dB + 6dB de rebote) para tener una referencia.
+            const maxTheoreticalDb = 95 + 6; // Máximo volumen posible con el mejor escenario
+            const maxDistancePossibleForBar = Math.pow(10, (maxTheoreticalDb - dB_TARGET) / 20);
+
+            // Limitar la distancia mostrada para que la barra visual no supere el 100%
+            const displayedDistance = Math.min(distance, maxDistancePossibleForBar);
+            const percentage = (displayedDistance / maxDistancePossibleForBar) * 100;
+
+            distanceMetersDiv.textContent = `${Math.round(displayedDistance)}m`;
+            visualBar.style.width = `${percentage}%`;
+
+            let message = "";
+            if (displayedDistance < 20) {
+                message = "Tranqui, solo tu familia te odia.";
+            } else if (displayedDistance < 60) {
+                message = "Media cuadra de City Bell, el kiosquero ya te miró mal.";
+            } else if (displayedDistance < 150) {
+                message = "2 cuadras, te piden que bajes en Plaza Belgrano.";
+            } else {
+                message = "MÁS DE 3 CUADRAS, viene control urbano y te filman para TikTok en Cantilo.";
+            }
+            messageDiv.textContent = message;
+        });
+    </script>
+
+</body>
+</html>
+```
